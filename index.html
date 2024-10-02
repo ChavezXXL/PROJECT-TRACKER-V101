@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Link to the main CSS file -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Include Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap">
+  <!-- Include Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation and Header -->
+  <header>
+    <div class="container">
+      <h1>Project Management</h1>
+      <button id="menu-icon" aria-label="Open Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <!-- Side Menu -->
+  <nav id="side-menu">
+    <ul>
+      <li><button id="show-project-list-btn"><i class="fas fa-tasks"></i> Projects</button></li>
+      <li><button id="show-employee-list-btn"><i class="fas fa-users"></i> Employees</button></li>
+      <li><button id="show-work-log-btn"><i class="fas fa-clock"></i> Work Log</button></li>
+      <li><button id="show-settings-btn"><i class="fas fa-cog"></i> Settings</button></li>
+    </ul>
+    <div id="menu-bottom">
+      <button id="clear-data-btn" class="btn-danger"><i class="fas fa-trash-alt"></i> Clear All Data</button>
+      <button id="export-data-btn" class="btn-danger"><i class="fas fa-download"></i> Export Data</button>
+      <button id="import-data-btn" class="btn-danger"><i class="fas fa-upload"></i> Import Data</button>
+      <input type="file" id="file-input" style="display:none;">
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Projects Section -->
+    <section id="project-list" class="content">
+      <div class="header-row">
+        <h2>Projects</h2>
+        <div class="actions-container">
+          <button id="add-project-btn" class="btn-primary"><i class="fas fa-plus"></i> Add Project</button>
+          <input type="text" id="project-search-input" placeholder="Search Projects">
+        </div>
+      </div>
+      <div id="projects" class="project-container"></div>
+    </section>
+
+    <!-- Employees Section -->
+    <section id="employee-list" class="content">
+      <div class="header-row">
+        <h2>Employees</h2>
+        <div class="actions-container">
+          <button id="add-employee-btn" class="btn-primary"><i class="fas fa-user-plus"></i> Add Employee</button>
+          <input type="text" id="employee-search-input" placeholder="Search Employees">
+        </div>
+      </div>
+      <ul id="employees" class="employee-list"></ul>
+    </section>
+
+    <!-- Work Log Section -->
+    <section id="work-log" class="content">
+      <h2>Work Log</h2>
+      <div class="actions-container">
+        <input type="text" id="work-log-search-input" placeholder="Search by Project Name">
+      </div>
+      <div id="work-log-entries" class="work-log-container"></div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settings-page" class="content">
+      <h2>Settings</h2>
+      <div class="settings-container">
+        <!-- Theme Settings -->
+        <div class="settings-group">
+          <h3>Theme Settings</h3>
+          <label for="theme-color">Primary Color:</label>
+          <input type="color" id="theme-color" value="#2d4059">
+          <label for="accent-color">Accent Color:</label>
+          <input type="color" id="accent-color" value="#f07b3f">
+          <label for="font-select">Font:</label>
+          <select id="font-select">
+            <option value="'Poppins', sans-serif" selected>Poppins</option>
+            <option value="'Roboto', sans-serif">Roboto</option>
+            <option value="'Open Sans', sans-serif">Open Sans</option>
+            <!-- Add more fonts as desired -->
+          </select>
+        </div>
+        <!-- Application Preferences -->
+        <div class="settings-group">
+          <h3>Application Preferences</h3>
+          <label class="checkbox-label">
+            <input type="checkbox" id="enable-notifications">
+            Enable Notifications
+          </label>
+          <label for="default-priority">Default Project Priority:</label>
+          <select id="default-priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <label for="default-employees">Default Assigned Employees:</label>
+          <select id="default-employees" multiple></select>
+          <label for="layout-select">Layout Style:</label>
+          <select id="layout-select">
+            <option value="grid" selected>Grid View</option>
+            <option value="list">List View</option>
+          </select>
+        </div>
+        <!-- Operations Management -->
+        <div class="settings-group">
+          <h3>Manage Operations</h3>
+          <label for="new-operation-input">New Operation</label>
+          <input type="text" id="new-operation-input">
+          <button id="add-operation-btn" class="btn-primary">Add Operation</button>
+          <ul id="operations-list"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modals -->
+  <!-- Project Modal -->
+  <div id="project-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-project-modal" class="close">&times;</span>
+      <h2 id="project-modal-title">Add Project</h2>
+      <form id="project-form">
+        <label for="project-name">Project Name</label>
+        <input type="text" id="project-name" required>
+        <label for="purchase-order">Purchase Order</label>
+        <input type="text" id="purchase-order">
+        <label for="part-number">Part Number</label>
+        <input type="text" id="part-number">
+        <label for="job-number">Job Number</label>
+        <input type="text" id="job-number">
+        <label for="due-date">Due Date</label>
+        <input type="date" id="due-date">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity">
+        <label for="notes">Notes</label>
+        <textarea id="notes"></textarea>
+        <label for="project-employees">Assigned Employees</label>
+        <select id="project-employees" multiple></select>
+        <label for="project-priority">Priority</label>
+        <select id="project-priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button type="button" id="save-project-btn" class="btn-primary">Save Project</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Employee Modal -->
+  <div id="employee-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-employee-modal" class="close">&times;</span>
+      <h2>Add Employee</h2>
+      <form id="employee-form">
+        <label for="employee-name">Employee Name</label>
+        <input type="text" id="employee-name" required>
+        <button type="button" id="save-employee-btn" class="btn-primary">Save Employee</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Operation Modal -->
+  <div id="operation-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-operation-modal" class="close">&times;</span>
+      <h2>Select Operation</h2>
+      <form id="operation-form">
+        <label for="operation-select">Operation</label>
+        <select id="operation-select" required></select>
+        <label for="operation-employees">Select Employees to Start Operation</label>
+        <select id="operation-employees" multiple required></select>
+        <button type="button" id="start-operation-btn" class="btn-primary">Start Operation</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Project Details Modal -->
+  <div id="project-details-modal" class="modal">
+    <div class="modal-content large-modal-content">
+      <span id="close-project-details-modal" class="close">&times;</span>
+      <div id="project-details-content"></div>
+    </div>
+  </div>
+
+  <!-- Include the main JavaScript file -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>
